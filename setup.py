@@ -52,3 +52,4 @@ setup(
     version='0.1.0',
     zip_safe=False,
 )
+lightbox --input http://claritytrec.ucd.ie/~alawlor/comp30670/←  input_assign3.txt
