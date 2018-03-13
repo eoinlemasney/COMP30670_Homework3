@@ -16,10 +16,11 @@ class LightBox:
     def __init__(self, L, text):
         
         self.size=L
+        print("this is self.size", self.size)
         self.text = text
         
         self.array=[[False]*L for _ in range(L)]
-
+        #print("this is self.array", self.array)
             
             
     def get_cmd(self):    
@@ -28,51 +29,58 @@ class LightBox:
         self.instructions = []
         for match in matches:
             command = list(match.groups())
+            print ("this is the command", command)
+            #changing from string to to integers 
             for i in range(1, 5):
                 command[i] = int(command[i])
+               # print (command[1])
             self.instructions.append(command)
-            print(match)   
-        print ("This is instrictuons 2 ",self.instructions[2])
+            print ("this is the command NOW", command)
+            print("This is a match", match)
+           # return self.instructions
+            
+        #print ("This is THE instrictuons",self.instructions)
+        
     
     def apply(self, instruction):
         cmd, x1, y1, x2, y2 = instruction
+        print(cmd, x1, y1, x2, y2)
         if cmd == 'turn on':
-            print ("This is self.cmd ", cmd)
+            self.turn_on(x1, y1, x2, y2)
+            
+        if cmd == 'turn off':
+            self.turn_off(x1, y1, x2, y2)
+            
+        if cmd == 'switch':
+            self.switch (x1, y1, x2, y2)
+            
             
             self.array[x1][y1] = True
-            self.array[x2][y2] = True
+            self.array[x2][y2] = True   
+            print(self.array)
+            #for row in range(x1,x2+1):
+            #    for col in range(y1,y2+1):
+            #        if self.seats[row][col]==0:
+            #            self.seats[row][col]=1
+           #         else:
+            #        self.seats[row][col]=1
+    
+            
+
 
         if cmd == 'switch':
             print ("This is self.cmd ", cmd)
             
             self.array[x1][y1] = True
             self.array[x2][y2] = True
+            print(self.array)
             
         if cmd == 'turn off':
             print ("This is self.cmd ", cmd)
             
             self.array[x1][y1] = False
             self.array[x2][y2] = False
-            
-        
-            
-            
-            
-            
-        
-
-        
-        
- #   def turn_on():
-    
- #   def turn_off():
-        
-  #  def switch():
-        
-
-
-
-        
+                   
 
 def read_file(input_link):
     '''Function which reads in a file from a URL or local file and returns the
@@ -101,27 +109,12 @@ def main():
         
         print("SIZE OF GRID yo: ", lightBox.text.split('\n')[0])
         lightBox.get_cmd()
-        lightBox.apply(lightBox.instructions[0])
+        lightBox.apply(lightBox.instructions[2])
 
         
 if __name__ == "__main__":
     main()
         
-        
-        
-        
-        
-        
-       # file_text = read_file(sys.argv[2])
-       # arraySize=int(file_text.split("\n")[0])
-       # print("This is the array size", arraySize)
-      #  lines = pat.finditer(file_text)
-        
-     #   instructions = []
-     #   for line in lines:
-       #     print(line.groups())
-     #       instructions.append(line.groups())
-    #
         
         
                                                     
