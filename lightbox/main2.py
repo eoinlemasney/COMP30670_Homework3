@@ -29,59 +29,63 @@ class LightBox:
         self.instructions = []
         for match in matches:
             command = list(match.groups())
-            print ("this is the command", command)
-            #changing from string to to integers 
+
             for i in range(1, 5):
                 command[i] = int(command[i])
-               # print (command[1])
+             
             self.instructions.append(command)
-            print ("this is the command NOW", command)
-            print("This is a match", match)
-           # return self.instructions
-            
-        #print ("This is THE instrictuons",self.instructions)
-        
-    
+         
     def apply(self, instruction):
         cmd, x1, y1, x2, y2 = instruction
+    
         print(cmd, x1, y1, x2, y2)
+        
         if cmd == 'turn on':
             self.turn_on(x1, y1, x2, y2)
-            
+
+
         if cmd == 'turn off':
             self.turn_off(x1, y1, x2, y2)
+
+        return instruction
+        print ("this is the ", instruction)
             
-        if cmd == 'switch':
-            self.switch (x1, y1, x2, y2)
+      #  if cmd == 'switch':
+      #      self.switch (x1, y1, x2, y2)
             
-            
-            self.array[x1][y1] = True
-            self.array[x2][y2] = True   
-            print(self.array)
-            #for row in range(x1,x2+1):
-            #    for col in range(y1,y2+1):
-            #        if self.seats[row][col]==0:
-            #            self.seats[row][col]=1
-           #         else:
-            #        self.seats[row][col]=1
+    def turn_on(self, x1, y1, x2, y2):
+# function to turn array elements in range to 1
+        for i in range(x1, x2+1):
+            for j in range(y1, y2+1):
+                self.array[j][i] = 1
+               # print(self.array)
     
-            
-
-
-        if cmd == 'switch':
-            print ("This is self.cmd ", cmd)
-            
-            self.array[x1][y1] = True
-            self.array[x2][y2] = True
-            print(self.array)
-            
-        if cmd == 'turn off':
-            print ("This is self.cmd ", cmd)
-            
-            self.array[x1][y1] = False
-            self.array[x2][y2] = False
+    def turno_off(self, x1, y1, x2, y2):
+        # function to turn array elements in range to 0
+        for i in range(x1, x2+1):
+            for j in range(y1, y2+1):
+                self.array[j][i] = 0
+               # print(self.array)
+        
+    def switch(self, x1, y1, x2, y2):
+        # function to swap value of array elements in range
+        for i in range(x1, x2+1):
+            for j in range(y1, y2+1):
+                if self.array[j][i] == 0:
+                    self.array[j][i] = 1
                    
-
+                else: 
+                    self.array[j][i] = 1
+                    
+    def count(self):
+        count = 0
+        for i in range(self.size):
+            for j in range(self.size):
+                if self.array[i][j]==1:
+                        count+=1
+        return count
+        print (count)
+        
 def read_file(input_link):
     '''Function which reads in a file from a URL or local file and returns the
     contents of the file in a string'''
@@ -103,13 +107,17 @@ def main():
         '''use regular expression and create a line for each in file'''
         print("reading from the main now")
         
+        
+        
+        
         file = read_file(sys.argv[2])
         L = int(file.split('\n')[0])
-        lightBox = LightBox(L, file)
-        
-        print("SIZE OF GRID yo: ", lightBox.text.split('\n')[0])
-        lightBox.get_cmd()
-        lightBox.apply(lightBox.instructions[2])
+        lightBox99 = LightBox(L, file)
+
+        print("lightBox99.get_cmd ",lightBox99.get_cmd())
+        lightBox99.apply(lightBox99.instructions[4])
+        print("count")
+        lightBox99.count()
 
         
 if __name__ == "__main__":
