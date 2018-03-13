@@ -32,6 +32,7 @@ class LightBox:
             self.text=open(input_link,'r').read() #.read() converts to a string
             print("This should not be printed")
             
+            
     def get_cmd(self):    
         pat = re.compile("(.*) (\d+),(\d+) through (\d+),(\d+)")
         matches = pat.finditer(self.text)
@@ -51,6 +52,20 @@ class LightBox:
             
             self.array[x1][y1] = True
             self.array[x2][y2] = True
+
+        if cmd == 'switch':
+            print ("This is self.cmd ", cmd)
+            
+            self.array[x1][y1] = True
+            self.array[x2][y2] = True
+            
+        if cmd == 'turn off':
+            print ("This is self.cmd ", cmd)
+            
+            self.array[x1][y1] = False
+            self.array[x2][y2] = False
+            
+        
             
             
             
@@ -88,10 +103,7 @@ def main():
     else:
         '''use regular expression and create a line for each in file'''
         print("reading from the main now")
-        size = text.split('\n')[0]
-        lightBox = LightBox(L, sys.argv[2])
-        
-        
+        lightBox = LightBox(1000, sys.argv[2])
         print("SIZE OF GRID: ", lightBox.text.split('\n')[0])
         #lightBox.get_cmd()
         #lightBox.apply(lightBox.instructions[0])
