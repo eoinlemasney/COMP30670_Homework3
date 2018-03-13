@@ -14,40 +14,66 @@ import re
 # and functions we need to solve this problem
 class LightBox:
     
-    # this regular expression will give us the command and the rectangular bounding box
-    # https://docs.python.org/2/library/re.html#re.MatchObject.group
+    # the rectangular bounding box
     
-    pat = re.compile("(.*) (\d+),(\d+) through (\d+),(\d+)")
-    def __init__(self, L):
+    
+    def __init__(self, L, file_path):
         
         self.size=L
-        # Initialisation of 2D array.
+        # creates 2D array
+        self.read_file(file_path)
         self.array=[[False]*L for _ in range(L)]
   
-    def get_cmd(lines):    
-        
-    
+    def get_cmd(self):    
+        #regular exp to give us the commands
         pat = re.compile("(.*) (\d+),(\d+) through (\d+),(\d+)")
-        file = read_file(sys.argv[2])
+        
         # function to parse the input to a usable format 
-
-        lines = pat.finditer(file)
-        cmd, x1, y1, x2, y2 = Seater.pat.match(line).groups()
+        #finditer will allow us to find multiple patterns as opposed to just finding the pttern and exiting
+        # and then we itter through each appearance of the group to go through every strinf 
+        lines = pat.finditer(self.text)
+        self.instructions = []
+        
+        count = 0
+        for line in lines:
+            while count < 1000:
+                print("This is a line", line.groups())
+                print ("count is ",count)
+                self.instructions.append(line.groups())
+                count += 1
+        print ("This is line.groups", line.groups)
+        cmd, x1, y1, x2, y2 = pat.match(line).groups()
         x1, x2, y1, y2 = int(x1), int(x2), int(y1), int(y2)
+        print("printing from the get_cmd method now")
         return cmd, x1, y1, x2, y2
-
-
-def read_file(input_link):
-    '''Function which reads in a file from a URL or local file and returns the
-    contents of the file in a string'''
     
-    if input_link.startswith("http://"):
-        req=urllib.request.urlopen(input_link)
-        text=req.read().decode('utf-8')
-        print("Reading from the http")
-    else:
-        text=open(input_link,'r').read() #.read() converts to a string
-    return text
+    def assign(self):
+        if line.groups == 'turn on':
+            a = line.group
+            print (line.group)
+
+        
+        
+ #   def turn_on():
+    
+ #   def turn_off():
+        
+  #  def switch():
+        
+
+
+    def read_file(self, input_link):
+        '''Function which reads in a file from a URL or local file and returns the
+        contents of the file in a string'''
+
+        if input_link.startswith("http://"):
+            req=urllib.request.urlopen(input_link)
+            self.text=req.read().decode('utf-8')
+            print("Reading from the http")
+        else:
+            self.text=open(input_link,'r').read() #.read() converts to a string
+            print("This should not be printed")
+        
 
 
 def main():
@@ -58,15 +84,28 @@ def main():
 
     else:
         '''use regular expression and create a line for each in file'''
-
-        file = read_file(sys.argv[2])
-        print(file)
-        arraySize=int(file.split("\n")[0])
-        print("This is the array size", arraySize)
-        lines = pat.finditer(file)
+        print("reading from the main now")
+        lightBox = LightBox(5, sys.argv[2])
+        lightBox.get_cmd()
+        lightBox.assign()
         
-        for line in lines:
-            print(line)      
+
+        
+        
+        
+        
+        
+        
+       # file_text = read_file(sys.argv[2])
+       # arraySize=int(file_text.split("\n")[0])
+       # print("This is the array size", arraySize)
+      #  lines = pat.finditer(file_text)
+        
+     #   instructions = []
+     #   for line in lines:
+       #     print(line.groups())
+     #       instructions.append(line.groups())
+    #
         
         
                                                     
