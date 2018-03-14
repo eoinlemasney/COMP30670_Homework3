@@ -1,34 +1,34 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+import lightbox.main2 as ltb
+from nose.tools import *
 
-"""Tests for `lightbox` package."""
+test_url_ok = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_c.txt"
+test_url_ko = 'http://www.thisdoesnotexist.com/myfile.txt'
 
-
-import unittest
-from click.testing import CliRunner
-
-from lightbox import lightbox
-from lightbox import cli
+test_local_not_formatted = './test_local_not_formatted.txt'
+test_local_ok = './test_local.txt'
+test_local_ko = './data/nonexisting.txt'
 
 
-class TestLightbox(unittest.TestCase):
-    """Tests for `lightbox` package."""
+def test_file_read_url():
+    f = ltb.read_file(test_url_ok)
+    assert len(f) == 2
+    assert f[0] != None
+    assert f[1] == 1000
+    
 
-    def setUp(self):
-        """Set up test fixtures, if any."""
+def test_file_read_local():
+    f = ltb.read_file(test_local_ok)
+    assert lens(f) == 2
+    assert f[0] == 'turn off 660,55 through 986,197\nturn off 341,304 through 638,850'
+    assert f[1] == 2
 
-    def tearDown(self):
-        """Tear down test fixtures, if any."""
 
-    def test_000_something(self):
-        """Test something."""
+@raises(Exception)
+def test_file_read_nonexisting_url():
+    ltb.read_file(test_url_ko)
 
-    def test_command_line_interface(self):
-        """Test the CLI."""
-        runner = CliRunner()
-        result = runner.invoke(cli.main)
-        assert result.exit_code == 0
-        assert 'lightbox.cli.main' in result.output
-        help_result = runner.invoke(cli.main, ['--help'])
-        assert help_result.exit_code == 0
-        assert '--help  Show this message and exit.' in help_result.output
+def test_file_read_local():
+    f = ltb.read_file(test_local_not_formatted)
+    assert len(f) == 2
+    assert f[0] == None
+    assert f[1] == None
